@@ -12,4 +12,4 @@ on:
 
 jobs:
   regenerate-readme:
-    uses: wp-cli/.github/.github/workflows/reusable-regenerate-readme.yml@2238f3f0aa5d17254c5edf59318d95959602715e
+    uses: wp-cli/.github/.github/workflows/reusable-regenerate-readme.yml@main
