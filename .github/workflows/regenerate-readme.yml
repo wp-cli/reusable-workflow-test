@@ -22,12 +22,12 @@ jobs:
   regenerate-readme: #----------------------------------------------------------
     name: Regenerate README.md file
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'wp-cli' && ! contains(fromJson('[".github", "wp-cli", "wp-cli-bundle", "wp-super-cache-cli", "php-cli-tools", "wp-config-transformer"]'), github.event.repository.name) }}
+    if: ${{ github.repository_owner == 'wp-cli' && ! contains(fromJson('[".github", "wp-cli", "wp-cli-bundle", "wp-super-cache-cli", "php-cli-tools", "wp-config-transformer", "wp-cli.github.com"]'), github.event.repository.name) }}
     steps:
       - name: Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up PHP envirnoment
+      - name: Set up PHP environment
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
@@ -45,6 +45,9 @@ jobs:
         uses: "ramsey/composer-install@v2"
         env:
           COMPOSER_ROOT_VERSION: dev-${{ github.event.repository.default_branch }}
+        with:
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: Configure git user
         run: |
